@@ -2,7 +2,7 @@
 
 namespace Modules\Delivery\Services;
 
-use Modules\Delivery\Events\DeliveryCompleted;
+use Modules\Delivery\Events\DeliveryCompletedEvent;
 use Modules\Delivery\Models\Delivery;
 use Modules\Order\Models\Order;
 use Modules\Order\Services\OrderService;
@@ -64,7 +64,7 @@ class DeliveryService
         $this->orderService->updateOrderStatus($order, 'completed');
 
         // Fire event for delivery completion
-        event(new DeliveryCompleted($order));
+        event(new DeliveryCompletedEvent($order));
     }
 
     /**
@@ -74,6 +74,6 @@ class DeliveryService
      */
     private function generateTrackingNumber(): string
     {
-        return 'TRK-' . strtoupper(uniqid());
+        return 'TRK-' . now()->format('Ymd') . strtoupper(bin2hex(random_bytes(4)));
     }
 }
