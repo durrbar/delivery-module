@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 // use Modules\Delivery\Database\Factories\DeliveryFactory;
 
@@ -27,5 +28,19 @@ class Delivery extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(config('delivery.order.model'), 'order_id', 'id');
+    }
+
+    public function items() : HasMany {
+        return $this->hasMany(DeliveryItem::class);
+    }
+
+    /**
+     * Check if all delivery items are delivered.
+     *
+     * @return bool
+     */
+    public function areAllItemsDelivered(): bool
+    {
+        return $this->items()->where('status', '!=', 'delivered')->doesntExist();
     }
 }

@@ -1,11 +1,10 @@
 <?php
-
 namespace Modules\Delivery\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Modules\Delivery\Models\Delivery;
 
-class DeliveryCompletedEvent
+class DeliveryScheduledEvent
 {
     use Dispatchable;
 
