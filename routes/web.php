@@ -14,6 +14,6 @@ use Modules\Delivery\Http\Controllers\DeliveryController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('delivery', DeliveryController::class)->names('delivery');
-});
+// Route::group([], function () {
+//     Route::resource('delivery', DeliveryController::class)->names('delivery');
+// });
