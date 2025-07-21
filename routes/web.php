@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Delivery\Http\Controllers\DeliveryController;
+use Modules\Delivery\Http\Controllers\DeliveryTimeController;
+use Modules\Delivery\Http\Controllers\ShippingController;
+use Modules\Role\Enums\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,20 @@ use Modules\Delivery\Http\Controllers\DeliveryController;
 // Route::group([], function () {
 //     Route::resource('delivery', DeliveryController::class)->names('delivery');
 // });
+
+Route::apiResource('delivery-times', DeliveryTimeController::class, [
+    'only' => ['index', 'show'],
+]);
+
+/**
+ * *****************************************
+ * Authorized Route for Super Admin only
+ * *****************************************
+ */
+Route::group(['middleware' => ['permission:'.Permission::SUPER_ADMIN, 'auth:sanctum']], function (): void {
+    Route::apiResource('delivery-times', DeliveryTimeController::class, [
+        'only' => ['store', 'update', 'destroy'],
+    ]);
+
+    Route::apiResource('shippings', ShippingController::class);
+});

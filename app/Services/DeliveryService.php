@@ -20,7 +20,7 @@ class DeliveryService
     /**
      * Schedule a delivery for the order.
      *
-     * @param array $deliveryData
+     * @param  array  $deliveryData
      * @return Delivery
      */
     public function scheduleDelivery(Order $order, string $shipBy = 'courier'): bool
@@ -61,17 +61,14 @@ class DeliveryService
 
             return true; // Deliveries successfully scheduled
         } catch (Exception $e) {
-            Log::error("Failed to schedule delivery for order {$order->id}: " . $e->getMessage());
+            Log::error("Failed to schedule delivery for order {$order->id}: ".$e->getMessage());
+
             return false;
         }
     }
 
     /**
      * Update the delivery status.
-     *
-     * @param Delivery $delivery
-     * @param string $status
-     * @return void
      */
     public function updateDeliveryStatus(Delivery $delivery, string $status): void
     {
@@ -80,9 +77,6 @@ class DeliveryService
 
     /**
      * Mark delivery as completed and update order status.
-     *
-     * @param Delivery $delivery
-     * @return void
      */
     public function markDeliveryCompleted(Delivery $delivery): void
     {
@@ -93,8 +87,7 @@ class DeliveryService
     /**
      * Mark a single delivery item as delivered.
      *
-     * @param DeliveryItem $deliveryItem
-     * @return void
+     * @param  DeliveryItem  $deliveryItem
      */
     public function completeDeliveryItem($deliveryItem): void
     {
@@ -105,7 +98,7 @@ class DeliveryService
             // The parent Delivery model will automatically update its status
             // if all items are delivered (handled in the DeliveryItem model).
         } catch (Exception $e) {
-            Log::error("Failed to complete delivery item ID {$deliveryItem->id}: " . $e->getMessage());
+            Log::error("Failed to complete delivery item ID {$deliveryItem->id}: ".$e->getMessage());
             throw $e; // Re-throw the exception after logging
         }
     }
@@ -113,8 +106,7 @@ class DeliveryService
     /**
      * Group items based on constraints (e.g., warehouse).
      *
-     * @param \Illuminate\Support\Collection $items
-     * @return array
+     * @param  \Illuminate\Support\Collection  $items
      */
     protected function groupItemsByConstraints($items): array
     {
@@ -124,20 +116,14 @@ class DeliveryService
 
     /**
      * Generate a unique tracking number for the delivery.
-     *
-     * @return string
      */
     private function generateTrackingNumber(): string
     {
-        return 'TRK-' . now()->format('Ymd') . strtoupper(bin2hex(random_bytes(4)));
+        return 'TRK-'.now()->format('Ymd').strtoupper(bin2hex(random_bytes(4)));
     }
 
     /**
      * Generate an extended tracking number for a delivery item.
-     *
-     * @param string $trackingNumber
-     * @param int $itemIndex
-     * @return string
      */
     private function generateExtendedTrackingNumber(string $trackingNumber, int $itemIndex): string
     {

@@ -1,8 +1,9 @@
 <?php
+
 namespace Modules\Delivery\Listeners;
 
-use Modules\Order\Events\OrderPaidEvent;
 use Modules\Delivery\Services\DeliveryService;
+use Modules\Order\Events\OrderPaidEvent;
 
 class OrderPaidListener
 {

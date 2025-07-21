@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Delivery\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
@@ -12,8 +13,6 @@ class DeliveryScheduledEvent
 
     /**
      * Create a new event instance.
-     *
-     * @param Delivery $delivery
      */
     public function __construct(Delivery $delivery)
     {

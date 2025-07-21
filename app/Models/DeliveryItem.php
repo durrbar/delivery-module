@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Delivery\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -26,14 +27,14 @@ class DeliveryItem extends Model
     /**
      * Handle the "updated" event for the delivery item.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
     protected static function boot()
     {
         parent::boot();
 
-        static::updated(function ($item) {
+        static::updated(function ($item): void {
             // If the item status is updated to 'delivered', check the parent delivery
             if ($item->status === 'delivered') {
                 $delivery = $item->delivery;

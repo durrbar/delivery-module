@@ -28,7 +28,7 @@ class CheckDeliveryStatus extends Command
         // Fetch non-delivered deliveries in chunks to avoid memory issues
         Delivery::where('status', '!=', 'delivered')
             ->with('items') // Eager load related items to avoid N+1 query problem
-            ->chunk(100, function ($deliveries) {
+            ->chunk(100, function ($deliveries): void {
                 foreach ($deliveries as $delivery) {
                     if ($delivery->areAllItemsDelivered()) {
                         $delivery->update(['status' => 'delivered']);

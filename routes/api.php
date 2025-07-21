@@ -14,6 +14,6 @@ use Modules\Delivery\Http\Controllers\DeliveryController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('v1')->group(function (): void {
     Route::apiResource('delivery', DeliveryController::class)->names('delivery');
 });
