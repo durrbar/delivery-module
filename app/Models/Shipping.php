@@ -3,12 +3,15 @@
 namespace Modules\Delivery\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Ecommerce\Models\Product;
 
 class Shipping extends Model
 {
+    use HasUuids;
+    
     protected $table = 'shipping_classes';
 
     public $guarded = [];

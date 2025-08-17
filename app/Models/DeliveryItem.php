@@ -2,11 +2,14 @@
 
 namespace Modules\Delivery\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DeliveryItem extends Model
 {
+    use HasUuids;
+    
     protected $fillable = [
         'delivery_id',
         'order_item_id',
