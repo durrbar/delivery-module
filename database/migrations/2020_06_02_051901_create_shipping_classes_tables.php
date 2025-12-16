@@ -35,6 +35,13 @@ return new class () extends Migration {
      */
     public function down()
     {
+        if (Schema::hasTable('products')) {
+            Schema::table('products', function (Blueprint $table): void {
+                $table->dropForeign(['shipping_class_id']);
+                $table->dropColumn('shipping_class_id');
+            });
+        }
+        
         Schema::dropIfExists('shipping_classes');
     }
 };
