@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Delivery\Enums\ShippingType;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -23,8 +26,7 @@ return new class () extends Migration {
         });
 
         Schema::table('products', function (Blueprint $table): void {
-            // $table->uuid('shipping_class_id')->nullable();
-            $table->foreignUuid('shipping_class_id')->references('id')->on('shipping_classes');
+            $table->foreignUuid('shipping_class_id')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -41,7 +43,7 @@ return new class () extends Migration {
                 $table->dropColumn('shipping_class_id');
             });
         }
-        
+
         Schema::dropIfExists('shipping_classes');
     }
 };
