@@ -26,7 +26,7 @@ return new class() extends Migration
         });
 
         Schema::table('products', function (Blueprint $table): void {
-            $table->foreignUuid('shipping_class_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('shipping_class_id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 
