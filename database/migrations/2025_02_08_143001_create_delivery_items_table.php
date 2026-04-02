@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Modules\Delivery\Enums\DeliveryStatus;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -15,7 +19,7 @@ return new class () extends Migration {
             $table->foreignUuid('delivery_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('old_order_item_id')->constrained()->cascadeOnDelete();
             $table->string('extended_traking_number')->unique();
-            $table->string('status')->default('pending');
+            $table->string('status')->default(DeliveryStatus::Pending->value);
 
             $table->timestamps();
         });

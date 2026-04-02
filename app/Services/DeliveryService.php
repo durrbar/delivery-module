@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Delivery\Services;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Modules\Delivery\Enums\DeliveryStatus;
 use Modules\Delivery\Models\Delivery;
 use Modules\Order\Models\Order;
 use Modules\Order\Services\OrderService;
 
-class DeliveryService
+final class DeliveryService
 {
-    protected OrderService $orderService;
+    private OrderService $orderService;
 
     public function __construct(OrderService $orderService)
     {
@@ -42,7 +45,7 @@ class DeliveryService
 
                 // Create a delivery record for the group
                 $delivery = $order->delivery()->create([
-                    'status' => 'pending', // Default status
+                    'status' => DeliveryStatus::Pending->value, // Default status
                     'shipping_address' => $order->shipping_address,
                     'tracking_number' => $trackingNumber,
                     'ship_by' => $shipBy, // Example ship method
@@ -54,7 +57,7 @@ class DeliveryService
                     $delivery->items()->create([
                         'order_item_id' => $item->id,
                         'extended_tracking_number' => $extendedTrackingNumber,
-                        'status' => 'pending',
+                        'status' => DeliveryStatus::Pending->value,
                     ]);
                 }
             }
@@ -81,7 +84,7 @@ class DeliveryService
     public function markDeliveryCompleted(Delivery $delivery): void
     {
         // Mark the delivery as delivered
-        $this->updateDeliveryStatus($delivery, 'delivered');
+        $this->updateDeliveryStatus($delivery, DeliveryStatus::Delivered->value);
     }
 
     /**
@@ -93,7 +96,7 @@ class DeliveryService
     {
         try {
             // Mark the delivery item as delivered
-            $deliveryItem->update(['status' => 'delivered']);
+            $deliveryItem->update(['status' => DeliveryStatus::Delivered->value]);
 
             // The parent Delivery model will automatically update its status
             // if all items are delivered (handled in the DeliveryItem model).
@@ -108,7 +111,7 @@ class DeliveryService
      *
      * @param  \Illuminate\Support\Collection  $items
      */
-    protected function groupItemsByConstraints($items): array
+    private function groupItemsByConstraints($items): array
     {
         // Example: Group items by warehouse (assuming each item has a `warehouse_id`)
         return $items->groupBy('warehouse_id')->values()->all();
@@ -119,7 +122,7 @@ class DeliveryService
      */
     private function generateTrackingNumber(): string
     {
-        return 'TRK-'.now()->format('Ymd').strtoupper(bin2hex(random_bytes(4)));
+        return 'TRK-'.now()->format('Ymd').mb_strtoupper(bin2hex(random_bytes(4)));
     }
 
     /**

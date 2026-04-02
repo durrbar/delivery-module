@@ -1,18 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Delivery\Enums;
 
-use BenSampo\Enum\Enum;
-
-/**
- * Class RoleType
- */
-final class ShippingType extends Enum
+enum ShippingType: string
 {
-    public const FIXED = 'fixed';
-
-    public const PERCENTAGE = 'percentage';
-
-    public const FREE = 'free_shipping';
-    // public const DEFAULT = 'fixed';
+    case Fixed = 'fixed';
+    case Percentage = 'percentage';
+    case Free = 'free_shipping';
 }

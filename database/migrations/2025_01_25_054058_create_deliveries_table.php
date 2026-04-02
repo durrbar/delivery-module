@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Modules\Delivery\Enums\DeliveryStatus;
 
 return new class() extends Migration
 {
@@ -17,7 +18,10 @@ return new class() extends Migration
             $table->uuid('id')->primary();
 
             $table->foreignUuid('order_id')->constrained()->cascadeOnDelete(); // Link to Order
-            $table->enum('status', ['pending', 'in_transit', 'delivered', 'failed'])->default('pending'); // e.g., pending, in transit, delivered
+            $table->enum(
+                'status',
+                DeliveryStatus::cases()
+            )->default(DeliveryStatus::Pending->value); // e.g., pending, in transit, delivered
             $table->string('tracking_number')->nullable();
             $table->string('delivery_provider');
 

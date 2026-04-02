@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Delivery\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Delivery\Enums\DeliveryStatus;
 
-class DeliveryItem extends Model
+final class DeliveryItem extends Model
 {
     use HasUuids;
-    
+
     protected $fillable = [
         'delivery_id',
         'order_item_id',
@@ -30,19 +33,19 @@ class DeliveryItem extends Model
     /**
      * Handle the "updated" event for the delivery item.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  Model  $model
      * @return void
      */
     protected static function boot()
     {
         parent::boot();
 
-        static::updated(function ($item): void {
+        self::updated(function ($item): void {
             // If the item status is updated to 'delivered', check the parent delivery
-            if ($item->status === 'delivered') {
+            if ($item->status === DeliveryStatus::Delivered->value) {
                 $delivery = $item->delivery;
                 if ($delivery && $delivery->areAllItemsDelivered()) {
-                    $delivery->update(['status' => 'delivered']);
+                    $delivery->update(['status' => DeliveryStatus::Delivered->value]);
                 }
             }
         });

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Delivery\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -8,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Modules\Delivery\Enums\DeliveryStatus;
 use Modules\Delivery\Observers\DeliveryObserver;
 
 // use Modules\Delivery\Database\Factories\DeliveryFactory;
@@ -22,6 +25,10 @@ class Delivery extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [];
+
+    protected $casts = [
+        'status' => DeliveryStatus::class,
+    ];
 
     // protected static function newFactory(): DeliveryFactory
     // {
@@ -43,6 +50,6 @@ class Delivery extends Model
      */
     public function areAllItemsDelivered(): bool
     {
-        return $this->items()->where('status', '!=', 'delivered')->doesntExist();
+        return $this->items()->where('status', '!=', DeliveryStatus::Delivered->value)->doesntExist();
     }
 }

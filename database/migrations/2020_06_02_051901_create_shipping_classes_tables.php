@@ -21,7 +21,10 @@ return new class() extends Migration
             $table->string('name');
             $table->double('amount');
             $table->string('is_global')->default(true);
-            $table->enum('type', ShippingType::getValues())->default(ShippingType::FIXED);
+            $table->enum(
+                'type',
+                ShippingType::cases()
+            )->default(ShippingType::Fixed->value);
             $table->timestamps();
         });
 
