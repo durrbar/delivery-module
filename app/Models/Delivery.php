@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Delivery\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,19 +17,11 @@ use Modules\Delivery\Observers\DeliveryObserver;
 // use Modules\Delivery\Database\Factories\DeliveryFactory;
 
 #[ObservedBy([DeliveryObserver::class])]
+#[Fillable([])]
 class Delivery extends Model
 {
     use HasFactory;
     use HasUuids;
-
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
-
-    protected $casts = [
-        'status' => DeliveryStatus::class,
-    ];
 
     // protected static function newFactory(): DeliveryFactory
     // {
@@ -51,5 +44,12 @@ class Delivery extends Model
     public function areAllItemsDelivered(): bool
     {
         return $this->items()->where('status', '!=', DeliveryStatus::Delivered->value)->doesntExist();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'status' => DeliveryStatus::class,
+        ];
     }
 }

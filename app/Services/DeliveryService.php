@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Modules\Delivery\Services;
 
 use Exception;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Modules\Delivery\Enums\DeliveryStatus;
 use Modules\Delivery\Models\Delivery;
 use Modules\Order\Models\Order;
 use Modules\Order\Services\OrderService;
 
-final class DeliveryService
+class DeliveryService
 {
     private OrderService $orderService;
 
@@ -109,7 +110,7 @@ final class DeliveryService
     /**
      * Group items based on constraints (e.g., warehouse).
      *
-     * @param  \Illuminate\Support\Collection  $items
+     * @param  Collection  $items
      */
     private function groupItemsByConstraints($items): array
     {

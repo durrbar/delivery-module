@@ -11,7 +11,7 @@ use Modules\Delivery\Enums\DeliveryStatus;
 use Modules\Delivery\Models\Delivery;
 use Tests\TestCase;
 
-final class DeliveryModelTest extends TestCase
+class DeliveryModelTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 

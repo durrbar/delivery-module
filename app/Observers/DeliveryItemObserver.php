@@ -7,7 +7,7 @@ namespace Modules\Delivery\Observers;
 use Modules\Delivery\Enums\DeliveryStatus;
 use Modules\Delivery\Models\DeliveryItem;
 
-final class DeliveryItemObserver
+class DeliveryItemObserver
 {
     public function updated(DeliveryItem $item): void
     {

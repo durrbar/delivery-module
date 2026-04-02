@@ -12,7 +12,7 @@ use Modules\Delivery\Services\DeliveryService;
 use Modules\Order\Services\OrderService;
 use Tests\TestCase;
 
-final class DeliveryServiceTest extends TestCase
+class DeliveryServiceTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 

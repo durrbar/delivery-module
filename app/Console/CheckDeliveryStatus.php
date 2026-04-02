@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace Modules\Delivery\Console;
 
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Modules\Delivery\Enums\DeliveryStatus;
 use Modules\Delivery\Models\Delivery;
 
+#[Signature('delivery:check-status')]
+#[Description('Check and update the status of deliveries')]
 class CheckDeliveryStatus extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
-    protected $signature = 'delivery:check-status';
-
-    /**
-     * The console command description.
-     */
-    protected $description = 'Check and update the status of deliveries';
-
     /**
      * Execute the console command.
      */

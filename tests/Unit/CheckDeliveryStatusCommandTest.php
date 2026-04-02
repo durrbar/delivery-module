@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Tests\TestCase;
 
-final class CheckDeliveryStatusCommandTest extends TestCase
+class CheckDeliveryStatusCommandTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 

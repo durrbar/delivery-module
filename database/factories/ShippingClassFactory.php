@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Delivery\Database\Factories;
 
-use Modules\Delivery\Models\Shipping;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Delivery\Models\Shipping;
 
 class ShippingClassFactory extends Factory
 {

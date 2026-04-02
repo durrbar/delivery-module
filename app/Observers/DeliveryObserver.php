@@ -9,7 +9,7 @@ use Modules\Delivery\Events\DeliveryCompletedEvent;
 use Modules\Delivery\Events\DeliveryScheduledEvent;
 use Modules\Delivery\Models\Delivery;
 
-final class DeliveryObserver
+class DeliveryObserver
 {
     /**
      * Handle the Delivery "created" event.

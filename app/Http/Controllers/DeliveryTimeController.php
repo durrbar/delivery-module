@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Delivery\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +13,7 @@ use Modules\Delivery\Http\Requests\DeliveryTimeRequest;
 use Modules\Delivery\Models\DeliveryTime;
 use Modules\Delivery\Repositories\DeliveryTimeRepository;
 use Prettus\Validator\Exceptions\ValidatorException;
+use Throwable;
 
 class DeliveryTimeController extends CoreController
 {
@@ -77,7 +80,7 @@ class DeliveryTimeController extends CoreController
         try {
             try {
                 return $this->repository->findOrFail($id)->update($request->validated());
-            } catch (\Throwable $th) {
+            } catch (Throwable $th) {
                 abort(400, COULD_NOT_UPDATE_THE_RESOURCE);
             }
         } catch (DurrbarException $e) {
