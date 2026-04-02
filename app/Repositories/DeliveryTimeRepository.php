@@ -12,7 +12,7 @@ class DeliveryTimeRepository extends BaseRepository
     /**
      * Configure the Model
      **/
-    public function model()
+    public function model(): string
     {
         return DeliveryTime::class;
     }
