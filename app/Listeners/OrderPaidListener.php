@@ -9,7 +9,7 @@ use Modules\Order\Events\OrderPaidEvent;
 
 class OrderPaidListener
 {
-    public function __construct(private DeliveryService $deliveryService) {}
+    public function __construct(private readonly DeliveryService $deliveryService) {}
 
     public function handle(OrderPaidEvent $event): void
     {
