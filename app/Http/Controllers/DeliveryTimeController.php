@@ -17,7 +17,7 @@ use Throwable;
 
 class DeliveryTimeController extends CoreController
 {
-    public function __construct(public DeliveryTimeRepository $repository) {}
+    public function __construct(public readonly DeliveryTimeRepository $repository) {}
 
     /**
      * Display a listing of the resource.
