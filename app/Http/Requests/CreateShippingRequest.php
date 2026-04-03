@@ -15,7 +15,7 @@ class CreateShippingRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -25,7 +25,7 @@ class CreateShippingRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string'],
@@ -35,7 +35,7 @@ class CreateShippingRequest extends FormRequest
         ];
     }
 
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator ): void
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
