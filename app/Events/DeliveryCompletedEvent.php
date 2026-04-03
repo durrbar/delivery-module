@@ -11,13 +11,8 @@ class DeliveryCompletedEvent
 {
     use Dispatchable;
 
-    public Delivery $delivery;
-
     /**
      * Create a new event instance.
      */
-    public function __construct(Delivery $delivery)
-    {
-        $this->delivery = $delivery;
-    }
+    public function __construct(public Delivery $delivery) {}
 }
