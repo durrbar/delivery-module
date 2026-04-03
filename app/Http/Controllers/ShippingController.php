@@ -17,12 +17,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class ShippingController extends CoreController
 {
-    public $repository;
-
-    public function __construct(ShippingRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+    public function __construct(public ShippingRepository $repository) {}
 
     /**
      * Display a listing of the resource.
