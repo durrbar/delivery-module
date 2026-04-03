@@ -11,7 +11,7 @@ class OrderPaidListener
 {
     public function __construct(private DeliveryService $deliveryService) {}
 
-    public function handle(OrderPaidEvent $event)
+    public function handle(OrderPaidEvent $event): void
     {
         $order = $event->order;
 
