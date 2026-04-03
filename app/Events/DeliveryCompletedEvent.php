@@ -14,5 +14,5 @@ class DeliveryCompletedEvent
     /**
      * Create a new event instance.
      */
-    public function __construct(public Delivery $delivery) {}
+    public function __construct(public readonly Delivery $delivery) {}
 }
